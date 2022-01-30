@@ -1,0 +1,118 @@
+<header [ngClass]="{ 'header-sec': true, checkoutImgActive: showItem }">
+  <div class="heading">sneakers</div>
+  <nav class="nav-tabs">
+    <ul class="tabs-list">
+      <li>Collections</li>
+      <li>Men</li>
+      <li>Women</li>
+      <li>About</li>
+      <li>Contact</li>
+    </ul>
+  </nav>
+
+  <div class="add-tabs">
+    <div class="cart-icon" (click)="showCartBox()">
+      <img src="../assets/images/icon-cart.svg" alt="Cart" />
+      <sup *ngIf="totalItemNo > 0 && isItemAdded">{{ totalItemNoInCart }}</sup>
+      <div class="cart-box" *ngIf="showCart">
+        <h3 class="cart-heading">Cart</h3>
+        <div class="item-box" *ngIf="isItemAdded; else emptyBox">
+          <div class="cart-item">
+            <div class="item-img">
+              <img
+                src="../assets/images/image-product-1-thumbnail.jpg"
+                alt=""
+              />
+            </div>
+            <div class="item-desc">
+              <p class="item-name">Fall Limited Edition Sneakers</p>
+              <div class="price-detail">
+                <span class="item-quantity"
+                  >$125 x {{ totalItemNoInCart }}</span
+                >
+                ${{ 125 * totalItemNo }}
+              </div>
+            </div>
+            <div class="delete-icon" (click)="deleteItem()">
+              <img src="../assets/images/icon-delete.svg" alt="" />
+            </div>
+          </div>
+          <div class="checkout-btn" (click)="checkoutBtnClicked()">
+            Checkout
+          </div>
+        </div>
+        <ng-template #emptyBox>
+          <div class="empty-box">
+            <p>Your cart is empty.</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="profile-pic">
+      <img src="../assets/images/image-avatar.png" alt="Profile" />
+    </div>
+  </div>
+</header>
+
+<section [ngClass]="{ main: true, checkoutImgActive: showItem }">
+  <div class="product-img">
+    <img src="../assets/images/image-product-{{ imageNo }}.jpg" alt="" />
+    <div class="thumbnails">
+      <ul>
+        <li *ngFor="let i of [1, 2, 3, 4]">
+          <img
+            (click)="showImage(i)"
+            [ngClass]="{ activeImg: i === imageNo }"
+            src="../assets/images/image-product-{{ i }}-thumbnail.jpg"
+            alt=""
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="product-detail">
+    <h6>SNEAKER COMPANY</h6>
+    <h1>Fall Limited Edition Sneakers</h1>
+    <p>
+      These low profile sneakers are your perfect casual wear companion.
+      Featuring a durable rubber outer sole, they'll withstand everything the
+      weather can offer.
+    </p>
+    <div class="pricing-tag">
+      <div class="price-total">$125.00 <span class="discount">50%</span></div>
+      <div class="actual-price"><s>$250.00</s></div>
+    </div>
+
+    <div class="action-tabs">
+      <div class="change-total">
+        <span class="decr-sign" (click)="changeCount('dec')">-</span>
+        <span class="value">{{ totalItemNo }}</span>
+        <span class="incr-sign" (click)="changeCount('inc')">+</span>
+      </div>
+
+      <div class="add-btn" (click)="addToCart()">
+        <img src="../assets/images/icon-cart.svg" alt="Cart" />
+        Add to cart
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="product" *ngIf="showItem">
+  <div class="close-item">
+    <img (click)="closeItem()" src="../assets/images/icon-close.svg" alt="" />
+  </div>
+  <img src="../assets/images/image-product-{{ imgNoForCheckout }}.jpg" alt="" />
+  <div class="thumbnails">
+    <ul>
+      <li *ngFor="let i of [1, 2, 3, 4]">
+        <img
+          (click)="showImageForCheckout(i)"
+          [ngClass]="{ activeImg: i === imgNoForCheckout }"
+          src="../assets/images/image-product-{{ i }}-thumbnail.jpg"
+          alt=""
+        />
+      </li>
+    </ul>
+  </div>
+</div>
